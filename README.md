@@ -24,3 +24,7 @@ pip3 install requests
 2. Run PrioBanChecker-Multi.py
 3. Wait for the program to finish checking
 4. Open checked_usernames.txt
+
+This github is sponsored by Browncoin!
+Browncoin : https://github.com/SoiledCold5/Browncoin
+Browncoin Discord : https://discord.gg/S2wrqyt
