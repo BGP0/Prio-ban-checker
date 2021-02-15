@@ -15,3 +15,5 @@ pip3 install colorama
 
 1. Make a list of usernames and put it in usernames.txt
 2. Run Ban_Checker.py
+3. Use the default URL for 2b2t
+4. Wait for the program to finish, then open results.txt

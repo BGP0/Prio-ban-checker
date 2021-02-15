@@ -29,7 +29,7 @@ unchecked = []
 mode = "Old"
 url = "https://donate.2b2t.org/category/738999"
 
-def category(color, colorLight, category, categoryName, max):
+def category(color, colorLight, category, categoryName, max, line):
     print(color + categoryName + ":")
     print(color + "---------")
     if len(category) == 0:
@@ -40,15 +40,16 @@ def category(color, colorLight, category, categoryName, max):
         else:
             print(colorLight + f"+ {str(len(category) - max)} more")
             break
-    print("\n")
+    if line == True:
+        print("\n")
 
 def update():
     os.system('cls' if os.name=='nt' else 'clear')
 
-    category(Fore.RED, Fore.LIGHTRED_EX, banned, "Banned", 5)
-    category(Fore.GREEN, Fore.LIGHTGREEN_EX, unbanned, "Unbanned", 5)
-    category(Fore.MAGENTA, Fore.LIGHTMAGENTA_EX, unchecked, "Invalid", 2)
-    category(Fore.CYAN, Fore.LIGHTCYAN_EX, unchecked, "Unchecked", 2)
+    category(Fore.RED, Fore.LIGHTRED_EX, banned, "Banned", 4, True)
+    category(Fore.GREEN, Fore.LIGHTGREEN_EX, unbanned, "Unbanned", 4, True)
+    category(Fore.MAGENTA, Fore.LIGHTMAGENTA_EX, unchecked, "Invalid", 2, True)
+    category(Fore.CYAN, Fore.LIGHTCYAN_EX, unchecked, "Unchecked", 2, False)
 
 def check(input):
     request = requests.request('POST', url, data = f'ign={input}', headers = { 'Content-Type': 'application/x-www-form-urlencoded' })
@@ -81,16 +82,16 @@ def check(input):
 
 print(Fore.LIGHTRED_EX + title)
 
-file = open('result.txt', 'a')
+file = open('results.txt', 'a')
 file.close()
-file = open('result.txt', 'r+')
+file = open('results.txt', 'r+')
 
 if len(file.read()) > 0:
     file.close()
-    delete = input("\"result.txt\" is not empty. Do you want to empty it? (Y/n) " + Fore.RESET)
+    delete = input("\"results.txt\" is not empty. Do you want to empty it? (Y/n) " + Fore.RESET)
     
     if "Y" in delete:
-        os.remove("result.txt")
+        os.remove("results.txt")
 
 mode = input(Fore.RED + "Which mode do you want to use? (New/Old) " + Fore.RESET)
 if "N" in mode or "n" in mode:
@@ -122,7 +123,7 @@ for x in threads:
     x.join()
 
 print(Fore.BLUE + "Saving file...")
-file = open('result.txt', 'a')
+file = open('results.txt', 'a')
 
 def writeList(file, list, action):
     file.write("--" + action + "--\n")
