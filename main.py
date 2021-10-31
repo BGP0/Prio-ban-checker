@@ -35,7 +35,6 @@ async def check(username, session):
         else:
             output += Fore.GREEN + "Unbanned"
             unbanList.append(username)
-            print(request.headers)
     
         print(output)
 
