@@ -1,7 +1,7 @@
 # Prio ban checker
- Checks if a player is banned from donate.2b2t.org
+ Checks a list of players to see if they are banned from the Minecraft server, 2b2t.org
 
-![picture](https://i.imgur.com/VhdVI8R.png)
+![Example](https://github.com/BGP0/Prio-ban-checker/blob/main/example.gif?raw=true)
 
 ## Installation
 
@@ -15,4 +15,5 @@ pip3 install requests
 1. Get some usernames and put them into username.txt, each on a seperate line
 2. Open a terminal in the folder and type ```python3 main.py```
 3. Should take a few seconds to finish checking every name thanks to asyncio and aiohttp!
-4. Then just look at the results, you can set outputUnbanList/outputBanList to true near the top of main.py if you want it to output them at the end.
+
+you can also enable output ban/unbanlist in main.py
