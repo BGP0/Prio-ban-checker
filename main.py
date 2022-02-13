@@ -7,6 +7,7 @@ from colorama import Fore
 outputUnbanList = False
 outputBanList   = False
 useInstantMode  = False
+delay           = 1.5        #will be ignored if useInstantMode is True
 debug           = False
 #######################
 
@@ -66,6 +67,7 @@ if useInstantMode:
 else:
     async def checkAll():
         for username in usernames:
+            time.sleep(delay)
             async with aiohttp.request("GET", f"http://shop.2b2t.org/?ign={username}") as request:
                 output(username, request)
     
