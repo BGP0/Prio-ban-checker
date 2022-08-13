@@ -1,6 +1,6 @@
 # Prio ban checker
 Checks a list of players to see if they are banned from the 2b2t.org Minecraft "Anarchy" server.
-The admin likes to abuse his power to ban users he doesn't like despite claiming the server has no rules, so we record all the banned users (maybe I'll make this 24/7 some day)    
+The admin likes to abuse his power to ban users he doesn't like despite claiming the server has no rules, so we record all the banned users (maybe I'll make this 24/7 some day)
 
 ## Installation
 
