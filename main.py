@@ -6,8 +6,13 @@ import os.path
 
 usernames = [item.replace("\n", "") for item in open('usernames.txt', 'r').readlines()]
 proxies = [item.replace("\n", "") for item in open('proxies.txt', 'r').readlines()] if os.path.exists("proxies.txt") else []
+stats = {
+    "Total": 0,
+    "Banned": [],
+    "Unbanned": [],
+    "Errors": [] # If program breaks or they change their name/delete acc
+}
 
-# Very fast
 def check_proxy(proxy):
     req = requests.post(
         "https://shop.2b2t.org/checkout/packages/add/1994962/single?ign=CAEC64",
@@ -76,8 +81,8 @@ def check(username, proxy):
             "https://shop.2b2t.org/checkout/packages/add/1994962/single?ign=" + username,
             allow_redirects=False,
             proxies={
-                "http": proxy,
-                "https": proxy
+                "http": "http://" + proxy,
+                "https": "http://" + proxy
             }
         )
     else:
