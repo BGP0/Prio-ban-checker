@@ -2,17 +2,12 @@ from colorama import Fore
 import threading
 import requests
 import time
+import os.path
 
 usernames = [item.replace("\n", "") for item in open('usernames.txt', 'r').readlines()]
-proxies = [item.replace("\n", "") for item in open('proxies.txt', 'r').readlines()]
-stats = {
-    "Total": 0,
-    "Banned": [],
-    "Unbanned": [],
-    "Errors": [] # If program breaks or they change their name/delete acc
-}
+proxies = [item.replace("\n", "") for item in open('proxies.txt', 'r').readlines()] if os.path.exists("proxies.txt") else []
 
-# Very fast, removes about 15% of my list from webshare.io
+# Very fast
 def check_proxy(proxy):
     req = requests.post(
         "https://shop.2b2t.org/checkout/packages/add/1994962/single?ign=CAEC64",
@@ -51,21 +46,27 @@ def output(username, result):
     if "buycraft_basket" in result:
         res = Fore.GREEN + username + " is unbanned"
         stats["Unbanned"] += [username]
+        output("Unbanned", username)
     elif "XRxlbOYKOzX5HYSsk7VO72KxURUxqkzYCSTxTat" in result:
         res = Fore.LIGHTRED_EX + username + " is banned"
         stats["Banned"] += [username]
+        output("Banned", username)
     elif result == "message=XRxlbOYKOzX5HYSsk7VO79kWPpwubYetzyPeyIphpZPxM%2BTo3%2BDuWHTzXALpQCz%2FyK8QCd0VpduRCEow0JIFDg%3D%3D":
         res = Fore.BLUE + username + " is not found"
         stats["Errors"] += [username]
+        output("Missing", username)
     elif result == "message=AeSOVxjOOOMBhHAGYvcmCdJEE6pUQYonWMSJbkGLdUV2oNeagFeBuFUSV3NdTnIa":
         res = Fore.BLUE + username + " is invalid"
         stats["Errors"] += [username]
+        output("Invalid", username)
     elif result == "message=XRxlbOYKOzX5HYSsk7VO79kWPpwubYetzyPeyIphpZOryToGcxK9AL6pF0TwQ1EZ":
         res = Fore.BLUE + username + " is deleted"
         stats["Errors"] += [username]
+        output("Deleted", username)
     else:
         stats["Errors"] += [username]
         res = "Unexpected result" + result + username
+        output("Unexpected_Result", username)
     
     print(f"{res}{Fore.RESET} ({stats['Total']}/{len(usernames)})")
 
@@ -123,6 +124,11 @@ def check_all():
         
     print("Finished")
 
+# Save immediately
+def output(category, name):
+    open("output.txt", 'a+').write(f"\n{category}: {name}")
+
+# Save when complete
 def save():
     with open("logs.txt", "a+") as f:
         text = ''
