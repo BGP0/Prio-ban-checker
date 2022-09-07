@@ -51,27 +51,27 @@ def output(username, result):
     if "buycraft_basket" in result:
         res = Fore.GREEN + username + " is unbanned"
         stats["Unbanned"] += [username]
-        output("Unbanned", username)
+        print_file("Unbanned", username)
     elif "XRxlbOYKOzX5HYSsk7VO72KxURUxqkzYCSTxTat" in result:
         res = Fore.LIGHTRED_EX + username + " is banned"
         stats["Banned"] += [username]
-        output("Banned", username)
+        print_file("Banned", username)
     elif result == "message=XRxlbOYKOzX5HYSsk7VO79kWPpwubYetzyPeyIphpZPxM%2BTo3%2BDuWHTzXALpQCz%2FyK8QCd0VpduRCEow0JIFDg%3D%3D":
         res = Fore.BLUE + username + " is not found"
         stats["Errors"] += [username]
-        output("Missing", username)
+        print_file("Missing", username)
     elif result == "message=AeSOVxjOOOMBhHAGYvcmCdJEE6pUQYonWMSJbkGLdUV2oNeagFeBuFUSV3NdTnIa":
         res = Fore.BLUE + username + " is invalid"
         stats["Errors"] += [username]
-        output("Invalid", username)
+        print_file("Invalid", username)
     elif result == "message=XRxlbOYKOzX5HYSsk7VO79kWPpwubYetzyPeyIphpZOryToGcxK9AL6pF0TwQ1EZ":
         res = Fore.BLUE + username + " is deleted"
         stats["Errors"] += [username]
-        output("Deleted", username)
+        print_file("Deleted", username)
     else:
         stats["Errors"] += [username]
         res = "Unexpected result" + result + username
-        output("Unexpected_Result", username)
+        print_file("Unexpected_Result", username)
     
     print(f"{res}{Fore.RESET} ({stats['Total']}/{len(usernames)})")
 
@@ -100,6 +100,7 @@ def check(username, proxy):
         stats["Errors"] += [username]
         stats["Total"] += 1
         print("Proxy error ?", username, proxy, req.status_code)
+        print_file("Proxy_Error", username)
 
 def check_thread(id, dim):
     proxy = proxies[id]
@@ -117,6 +118,7 @@ def check_all():
             thread = threading.Thread(target=check_thread, args=(i, dim))
             thread.start()
             threads.append(thread)
+            time.sleep(1.5 / dim)
         
         print("Started all threads")
 
@@ -130,7 +132,7 @@ def check_all():
     print("Finished")
 
 # Save immediately
-def output(category, name):
+def print_file(category, name):
     open("output.txt", 'a+').write(f"\n{category}: {name}")
 
 # Save when complete
