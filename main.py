@@ -13,8 +13,8 @@ def check_proxy(proxy):
         "https://shop.2b2t.org/checkout/packages/add/1994962/single?ign=CAEC64",
         allow_redirects=False,
         proxies={
-            "http": proxy,
-            "https": proxy
+            "http": "http://" + proxy,
+            "https": "http://" + proxy
         }
     )
 
